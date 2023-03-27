@@ -1,0 +1,56 @@
+{
+  "Home.HomePage.title": "In trends",
+  "Home.HomePage.subtitle": "Best movies on this week",
+
+  "Film.FilmDescription.duration": "Duration",
+  "Film.FilmDescription.originalTitle": "Original title",
+  "Film.FilmDescription.worldPremiere": "World premiere",
+  "Film.FilmDescription.budget": "Budget",
+  "Film.FilmDescription.boxOffice": "Box office",
+
+  "Film.FilmDetailsPage.backButton": "Back",
+
+  "Film.FilmPage.title": "All films",
+  "Film.FilmPage.subtitle": "Films from all over the world",
+
+  "Series.SeriesDescription.duration": "Episode duration",
+  "Series.SeriesDescription.originalTitle": "Original title",
+  "Series.SeriesDescription.worldPremiere": "World premiere",
+  "Series.SeriesDescription.seasons": "Seasons",
+  "Series.SeriesDescription.episodes": "Episodes",
+  "Series.SeriesDescription.lastEpisodeDate": "Last episode date",
+
+  "Series.SeriesDetailsPage.backButton": "Back",
+
+  "Series.SeriesPage.title": "All series",
+  "Series.SeriesPage.subtitle": "Series from all over the world",
+
+  "Search.SearchBar.placeholder": "Search...",
+  "Search.SearchBar.filmsTabLabel": "Films",
+  "Search.SearchBar.seriesTabLabel": "Series",
+  "Search.SearchBar.watchAllButton": "Watch all",
+
+  "Search.SearchBarList.noResultsText": "Sorry... No results for your query.",
+
+  "Search.SearchPage.searchResultTitle": "Search results for",
+  "Search.SearchPage.noResultsText": "No results for your query",
+
+  "Unknown.Header.menuItemFilms": "Films",
+  "Unknown.Header.menuItemSeries": "Series",
+
+  "Unknown.Footer.menuItemFilms": "Films",
+  "Unknown.Footer.menuItemSeries": "Series",
+  "Unknown.Footer.databaseLink": "Database API",
+  "Unknown.Footer.copyright": "2022 YourMovies",
+
+  "Unknown.MovieDetailsTabCast.noResultsText": "No information about the cast",
+
+  "Unknown.MovieDetailsTabReviews.noResultsText": "There are no reviews yet",
+
+  "Unknown.MovieDetailsTabs.castTabLabel": "Cast",
+  "Unknown.MovieDetailsTabs.reviewsTabLabel": "Reviews",
+
+  "Unknown.NotFoundPage.title": "Not found page",
+  "Unknown.NotFoundPage.subtitle": "You may have mistyped the page address.",
+  "Unknown.NotFoundPage.buttonText": "Main page"
+}
