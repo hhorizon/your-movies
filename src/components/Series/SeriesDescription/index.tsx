@@ -35,6 +35,8 @@ const SeriesDescription: React.FC<SeriesDescriptionProps> = ({ series }) => {
     overview,
   } = series;
 
+  console.log(episode_run_time);
+
   const detailsElements = [
     {
       name: intl.formatMessage(messages.worldPremiere),
@@ -42,7 +44,7 @@ const SeriesDescription: React.FC<SeriesDescriptionProps> = ({ series }) => {
     },
     {
       name: intl.formatMessage(messages.duration),
-      value: episode_run_time ? `~${episode_run_time[0]} min` : null,
+      value: episode_run_time.length ? `~${episode_run_time[0]} min` : null,
     },
     {
       name: intl.formatMessage(messages.originalTitle),
