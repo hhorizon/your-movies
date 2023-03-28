@@ -35,8 +35,6 @@ const SeriesDescription: React.FC<SeriesDescriptionProps> = ({ series }) => {
     overview,
   } = series;
 
-  console.log(episode_run_time);
-
   const detailsElements = [
     {
       name: intl.formatMessage(messages.worldPremiere),
