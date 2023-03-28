@@ -15,6 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import SearchIcon from "@mui/icons-material/Search";
 import Logo from "../Logo";
 import SearchBar from "../../Search/SearchBar";
+import UserMenu from "../UserMenu";
 
 import useStyles from "./useStyles";
 import messages from "./messages";
@@ -40,12 +41,14 @@ const Header = () => {
     <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar>
+          {/* desktop logo */}
           <Box mr={12} display={{ xs: "none", md: "flex" }}>
             <RouterLink to="/" className={classes.routerLink}>
               <Logo size="large" />
             </RouterLink>
           </Box>
 
+          {/* mobile menu */}
           <Box sx={{ display: { xs: "flex", md: "none" }, mr: 5 }}>
             <IconButton
               size="large"
@@ -80,12 +83,14 @@ const Header = () => {
             </Menu>
           </Box>
 
+          {/* mobile logo */}
           <Box flexGrow={1} display={{ xs: "flex", md: "none" }} mr={5}>
             <RouterLink to="/" className={classes.routerLink}>
               <Logo size="large" />
             </RouterLink>
           </Box>
 
+          {/* desktop menu */}
           <Box flexGrow={1} display={{ xs: "none", md: "flex" }}>
             <MenuItem component={RouterLink} to="/films" sx={{ mr: 4 }}>
               <Typography variant="h6">
@@ -100,15 +105,17 @@ const Header = () => {
             </MenuItem>
           </Box>
 
+          {/* desktop searchbar */}
           <Box
             position="absolute"
-            right={0}
+            right={150}
             display={{ xs: "none", sm: "block" }}
             bgcolor="primary.main"
           >
             <SearchBar />
           </Box>
 
+          {/* mobile searchbar */}
           <Box display={{ sm: "none" }}>
             <IconButton onClick={() => setOpenSearchBar(true)} color="inherit">
               <SearchIcon />
@@ -125,6 +132,11 @@ const Header = () => {
                 <SearchBar />
               </Box>
             )}
+          </Box>
+
+          {/* desktop usermenu */}
+          <Box display={{ xs: "none", md: "flex" }}>
+            <UserMenu />
           </Box>
         </Toolbar>
       </Container>

@@ -52,5 +52,14 @@
 
   "Unknown.NotFoundPage.title": "Not found page",
   "Unknown.NotFoundPage.subtitle": "You may have mistyped the page address.",
-  "Unknown.NotFoundPage.buttonText": "Main page"
+  "Unknown.NotFoundPage.buttonText": "Main page",
+
+  "Unknown.RegistrationForm.emailLabel": "Email",
+  "Unknown.RegistrationForm.passwordLable": "Password",
+
+  "Unknown.UserMenu.signUpLabel": "Sign Up",
+  "Unknown.UserMenu.signInLabel": "Sign In",
+  "Unknown.UserMenu.signOutLabel": "Sign Out",
+  "Unknown.UserMenu.signInBtnText": "Sign In",
+  "Unknown.UserMenu.signUpBtnText": "Registration"
 }
