@@ -15,6 +15,6 @@ export default defineMessages({
   },
   copyright: {
     id: "Unknown.Footer.copyright",
-    defaultMessage: "2022 YourMovies",
+    defaultMessage: "2023 YourMovies",
   },
 });

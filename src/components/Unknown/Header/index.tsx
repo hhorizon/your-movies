@@ -15,6 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import SearchIcon from "@mui/icons-material/Search";
 import Logo from "../Logo";
 import SearchBar from "../../Search/SearchBar";
+import UserMenu from "../UserMenu";
 
 import useStyles from "./useStyles";
 import messages from "./messages";
@@ -40,12 +41,14 @@ const Header = () => {
     <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar>
+          {/* desktop logo */}
           <Box mr={12} display={{ xs: "none", md: "flex" }}>
             <RouterLink to="/" className={classes.routerLink}>
               <Logo size="large" />
             </RouterLink>
           </Box>
 
+          {/* mobile menu */}
           <Box sx={{ display: { xs: "flex", md: "none" }, mr: 5 }}>
             <IconButton
               size="large"
@@ -80,12 +83,14 @@ const Header = () => {
             </Menu>
           </Box>
 
+          {/* mobile logo */}
           <Box flexGrow={1} display={{ xs: "flex", md: "none" }} mr={5}>
             <RouterLink to="/" className={classes.routerLink}>
               <Logo size="large" />
             </RouterLink>
           </Box>
 
+          {/* desktop menu */}
           <Box flexGrow={1} display={{ xs: "none", md: "flex" }}>
             <MenuItem component={RouterLink} to="/films" sx={{ mr: 4 }}>
               <Typography variant="h6">
@@ -100,16 +105,18 @@ const Header = () => {
             </MenuItem>
           </Box>
 
+          {/* desktop searchbar */}
           <Box
             position="absolute"
-            right={0}
-            display={{ xs: "none", sm: "block" }}
+            right={{ sm: 0, md: 165 }}
+            display={{ xs: "none", sm: "block", md: "none", lg: "block" }}
             bgcolor="primary.main"
           >
             <SearchBar />
           </Box>
 
-          <Box display={{ sm: "none" }}>
+          {/* mobile searchbar */}
+          <Box display={{ sm: "none", md: "block", lg: "none" }}>
             <IconButton onClick={() => setOpenSearchBar(true)} color="inherit">
               <SearchIcon />
             </IconButton>
@@ -117,14 +124,19 @@ const Header = () => {
             {openSearchBar && (
               <Box
                 position="absolute"
-                right={0}
-                top={7}
+                right={{ xs: 0, md: 165 }}
+                top={{ xs: 7, md: 11 }}
                 bgcolor="primary.main"
                 ref={searchBarRef}
               >
                 <SearchBar />
               </Box>
             )}
+          </Box>
+
+          {/* desktop usermenu */}
+          <Box display={{ xs: "none", md: "flex" }}>
+            <UserMenu />
           </Box>
         </Toolbar>
       </Container>
