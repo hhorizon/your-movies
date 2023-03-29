@@ -108,15 +108,15 @@ const Header = () => {
           {/* desktop searchbar */}
           <Box
             position="absolute"
-            right={150}
-            display={{ xs: "none", sm: "block" }}
+            right={{ sm: 0, md: 165 }}
+            display={{ xs: "none", sm: "block", md: "none", lg: "block" }}
             bgcolor="primary.main"
           >
             <SearchBar />
           </Box>
 
           {/* mobile searchbar */}
-          <Box display={{ sm: "none" }}>
+          <Box display={{ sm: "none", md: "block", lg: "none" }}>
             <IconButton onClick={() => setOpenSearchBar(true)} color="inherit">
               <SearchIcon />
             </IconButton>
@@ -124,8 +124,8 @@ const Header = () => {
             {openSearchBar && (
               <Box
                 position="absolute"
-                right={0}
-                top={7}
+                right={{ xs: 0, md: 165 }}
+                top={{ xs: 7, md: 11 }}
                 bgcolor="primary.main"
                 ref={searchBarRef}
               >

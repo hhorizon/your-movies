@@ -9,7 +9,7 @@ import { AuthProvider } from "./components/Unknown/AuthProvider";
 import App from "./App";
 import GlobalStyles from "./components/Unknown/GlobalStyles";
 import IntlProvider from "./components/Unknown/IntlProvider";
-import { setupStore } from "./store";
+import { setupStore } from "./redux/store";
 import theme from "./common/theme";
 
 const store = setupStore();

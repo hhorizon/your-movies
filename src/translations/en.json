@@ -41,7 +41,7 @@
   "Unknown.Footer.menuItemFilms": "Films",
   "Unknown.Footer.menuItemSeries": "Series",
   "Unknown.Footer.databaseLink": "Database API",
-  "Unknown.Footer.copyright": "2022 YourMovies",
+  "Unknown.Footer.copyright": "2023 YourMovies",
 
   "Unknown.MovieDetailsTabCast.noResultsText": "No information about the cast",
 
@@ -60,6 +60,9 @@
   "Unknown.UserMenu.signUpLabel": "Sign Up",
   "Unknown.UserMenu.signInLabel": "Sign In",
   "Unknown.UserMenu.signOutLabel": "Sign Out",
-  "Unknown.UserMenu.signInBtnText": "Sign In",
-  "Unknown.UserMenu.signUpBtnText": "Registration"
+
+  "Unknown.RegistrationModal.signUpLabel": "Sign Up",
+  "Unknown.RegistrationModal.signInLabel": "Sign In",
+  "Unknown.RegistrationModal.signInBtnText": "Sign In",
+  "Unknown.RegistrationModal.signUpBtnText": "Registration"
 }

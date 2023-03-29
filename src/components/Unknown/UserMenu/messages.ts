@@ -13,12 +13,4 @@ export default defineMessages({
     id: "Unknown.UserMenu.signOutLabel",
     defaultMessage: "Sign Out",
   },
-  signInBtnText: {
-    id: "Unknown.UserMenu.signInBtnText",
-    defaultMessage: "Sign In",
-  },
-  signUpBtnText: {
-    id: "Unknown.UserMenu.signUpBtnText",
-    defaultMessage: "Registration",
-  },
 });
