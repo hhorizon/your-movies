@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux";
+import { FirebaseAppProvider } from "reactfire";
 import { CssBaseline, StyledEngineProvider } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { AuthProvider } from "./components/Unknown/AuthProvider";
@@ -9,6 +10,7 @@ import { AuthProvider } from "./components/Unknown/AuthProvider";
 import App from "./App";
 import GlobalStyles from "./components/Unknown/GlobalStyles";
 import IntlProvider from "./components/Unknown/IntlProvider";
+import firebaseApp from "./common/firebaseApp";
 import { setupStore } from "./redux/store";
 import theme from "./common/theme";
 
@@ -20,20 +22,22 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <ReduxProvider store={store}>
-      <BrowserRouter>
-        <AuthProvider>
-          <IntlProvider>
-            <ThemeProvider theme={theme}>
-              <StyledEngineProvider injectFirst>
-                <CssBaseline />
-                <GlobalStyles />
-                <App />
-              </StyledEngineProvider>
-            </ThemeProvider>
-          </IntlProvider>
-        </AuthProvider>
-      </BrowserRouter>
-    </ReduxProvider>
+    <FirebaseAppProvider firebaseApp={firebaseApp}>
+      <ReduxProvider store={store}>
+        <BrowserRouter>
+          <AuthProvider>
+            <IntlProvider>
+              <ThemeProvider theme={theme}>
+                <StyledEngineProvider injectFirst>
+                  <CssBaseline />
+                  <GlobalStyles />
+                  <App />
+                </StyledEngineProvider>
+              </ThemeProvider>
+            </IntlProvider>
+          </AuthProvider>
+        </BrowserRouter>
+      </ReduxProvider>
+    </FirebaseAppProvider>
   </React.StrictMode>,
 );
