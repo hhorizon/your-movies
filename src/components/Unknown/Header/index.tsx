@@ -106,7 +106,7 @@ const Header = () => {
               </Typography>
             </MenuItem>
 
-            <MenuItem component={RouterLink} to="/series">
+            <MenuItem component={RouterLink} to="/series" sx={{ mr: 4 }}>
               <Typography variant="h6">
                 {intl.formatMessage(messages.menuItemSeries)}
               </Typography>
