@@ -6,19 +6,21 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 
 interface FavoriteLabelProps {
   isFavorite: boolean;
+  size?: "medium" | "large" | "small";
   onFavoriteIcon: (isAddIcon: boolean) => void;
 }
 
 const FavoriteLabel: React.FC<FavoriteLabelProps> = ({
   isFavorite,
+  size,
   onFavoriteIcon,
 }) => {
   return (
     <IconButton onClick={() => onFavoriteIcon(!isFavorite)}>
       {isFavorite ? (
-        <FavoriteIcon color="primary" />
+        <FavoriteIcon fontSize={size ? size : "medium"} color="primary" />
       ) : (
-        <FavoriteBorderIcon color="primary" />
+        <FavoriteBorderIcon fontSize={size ? size : "medium"} color="primary" />
       )}
     </IconButton>
   );

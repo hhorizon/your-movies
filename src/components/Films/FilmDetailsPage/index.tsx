@@ -1,4 +1,6 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useContext } from "react";
+import { collection, CollectionReference } from "firebase/firestore";
+import { useFirestoreCollectionData } from "reactfire";
 import { useIntl } from "react-intl";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 
@@ -10,6 +12,10 @@ import NotFoundPage from "../../Unknown/NotFoundPage";
 import Loader from "../../Unknown/Loader";
 
 import { useGetFilmByIdQuery } from "../../../services/movieService";
+import db from "../../../common/firebaseDb";
+import getOneMovieWithFavorite from "../../../common/getOneMovieWithFavorite";
+import { AuthContext } from "../../Unknown/AuthProvider";
+import { MovieWithFavorite } from "../../../types";
 import messages from "./messages";
 
 type FilmDetailsPageParams = {
@@ -18,6 +24,7 @@ type FilmDetailsPageParams = {
 
 const FilmDetailsPage: React.FC = () => {
   const { movieId } = useParams() as FilmDetailsPageParams;
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const intl = useIntl();
@@ -30,7 +37,18 @@ const FilmDetailsPage: React.FC = () => {
     return "/";
   }, [location]);
 
+  const favoritesRef = collection(
+    db,
+    `users/${user?.uid}/favoriteMovies`,
+  ) as CollectionReference<MovieWithFavorite>;
+
+  // TODO error notification
+  const { data: favoriteMovies } =
+    useFirestoreCollectionData<MovieWithFavorite>(favoritesRef);
+
   const { data: film, isLoading, error } = useGetFilmByIdQuery(movieId);
+
+  const movieWithFavorite = getOneMovieWithFavorite(film, favoriteMovies);
 
   const onClickBack = () => {
     navigate(navigatePathname);
@@ -42,7 +60,7 @@ const FilmDetailsPage: React.FC = () => {
     <Box pt={18} pb={5} height="100%" display="flex" flexDirection="column">
       {isLoading && <Loader />}
 
-      {film && (
+      {movieWithFavorite && (
         <Box>
           <Box mb={5}>
             <Button variant="outlined" onClick={onClickBack}>
@@ -51,7 +69,7 @@ const FilmDetailsPage: React.FC = () => {
           </Box>
 
           <Box mb={5}>
-            <FilmDescription film={film} />
+            <FilmDescription film={movieWithFavorite} />
           </Box>
 
           <Box>
