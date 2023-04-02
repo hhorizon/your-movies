@@ -43,7 +43,7 @@ const SearchPage = () => {
   );
 
   return (
-    <Box pt={18} pb={5} height="100%" display="flex" flexDirection="column">
+    <Box>
       <Typography variant="h5" mb={6}>
         {intl.formatMessage(messages.searchResultTitle)}:{" "}
         <span style={{ fontStyle: "italic" }}>{query}</span>

@@ -40,7 +40,7 @@ const SeriesPage: React.FC = () => {
   );
 
   return (
-    <Box pt={18} pb={5} height="100%" display="flex" flexDirection="column">
+    <Box>
       <Typography variant="h4">{intl.formatMessage(messages.title)}</Typography>
       <Typography mb={6}>{intl.formatMessage(messages.subtitle)}</Typography>
 

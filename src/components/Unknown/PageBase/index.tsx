@@ -21,7 +21,9 @@ const PageBase: React.FC<PageBaseProps> = ({ children }) => {
 
       <Box flexGrow={1} display="flex">
         <Container maxWidth="xl" sx={{ backgroundColor: "common.white" }}>
-          {children}
+          <Box pt={18} pb={5} height="100%">
+            {children}
+          </Box>
         </Container>
       </Box>
 

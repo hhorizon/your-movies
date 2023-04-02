@@ -39,7 +39,7 @@ const SeriesDetailsPage: React.FC = () => {
   if (error) return <NotFoundPage />;
 
   return (
-    <Box pt={18} pb={5} height="100%" display="flex" flexDirection="column">
+    <Box>
       {isLoading && <Loader />}
 
       {series && (
