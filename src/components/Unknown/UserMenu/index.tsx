@@ -14,7 +14,7 @@ import messages from "./messages";
 
 const UserMenu: React.FC = () => {
   const dispatch = useDispatch();
-  const user = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const auth = getAuth();
   const intl = useIntl();
   const userName = user?.email?.[0];

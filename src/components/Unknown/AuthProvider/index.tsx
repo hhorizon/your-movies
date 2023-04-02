@@ -5,23 +5,44 @@ interface AuthProviderProps {
   children: React.ReactElement;
 }
 
-export const AuthContext = createContext<User | null>(null);
+type AuthContextType = {
+  user: User | null;
+  loadingAuth: boolean;
+};
+
+export const AuthContext = createContext<AuthContextType>({
+  user: null,
+  loadingAuth: false,
+});
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [loadingAuth, setLoadingAuth] = useState(false);
+
   const auth = getAuth();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setCurrentUser(user);
+    setLoadingAuth(true);
+
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+        setLoadingAuth(false);
       } else {
-        setCurrentUser(null);
+        setUser(null);
+        setLoadingAuth(false);
       }
     });
   }, [auth]);
 
   return (
-    <AuthContext.Provider value={currentUser}>{children}</AuthContext.Provider>
+    <AuthContext.Provider
+      value={{
+        user,
+        loadingAuth,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
   );
 };

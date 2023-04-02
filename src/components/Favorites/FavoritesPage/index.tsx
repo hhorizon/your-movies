@@ -1,50 +1,60 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { collection, CollectionReference } from "firebase/firestore";
+import { useFirestoreCollectionData } from "reactfire";
 import { useIntl } from "react-intl";
-// import { doc, setDoc, getFirestore } from "firebase/firestore";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Loader from "../../Unknown/Loader";
+import MoviesList from "../../Unknown/MovieList";
 
 import messages from "./messages";
-// import { AuthContext } from "../../Unknown/AuthProvider";
-// import db from "../../../common/firebaseDb";
-
-// const createDoc = async () => {
-//   try {
-//     await setDoc(
-//       doc(
-//         db,
-//         "users/UlNttQC6iLOngm6YBBlD5KQE3pT2/favoriteMovies",
-//         "qweqweячсфывzxc",
-//       ),
-//       {
-//         name: "Los Angeles",
-//         state: "CA",
-//         country: "USA",
-//       },
-//     );
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+import { AuthContext } from "../../Unknown/AuthProvider";
+import db from "../../../common/firebaseDb";
+import { MovieWithFavorite } from "../../../types";
+import { openRegistrationModal } from "../../../redux/common/common-actions";
 
 const FavoritesPage: React.FC = () => {
+  const { user, loadingAuth } = useContext(AuthContext);
+  const dispatch = useDispatch();
   const intl = useIntl();
-  //   const user = useContext(AuthContext);
+
+  const favoritesRef = collection(
+    db,
+    `users/${user?.uid}/favoriteMovies`,
+  ) as CollectionReference<MovieWithFavorite>;
+
+  // TODO error notification
+  const { status, data: favoriteMovies } =
+    useFirestoreCollectionData<MovieWithFavorite>(favoritesRef);
+
+  useEffect(() => {
+    if (!user) {
+      dispatch(openRegistrationModal(1));
+    }
+  }, [dispatch, loadingAuth, user]);
+
+  if (!user) {
+    return (
+      <Box pt={18} pb={5} height="100%" display="flex" flexDirection="column">
+        <Typography variant="h6">
+          {intl.formatMessage(messages.notAuthMessage)}
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box pt={18} pb={5} height="100%" display="flex" flexDirection="column">
       <Typography variant="h4">{intl.formatMessage(messages.title)}</Typography>
       <Typography mb={6}>{intl.formatMessage(messages.subtitle)}</Typography>
 
-      {/* <button onClick={() => createDoc()}>qwe</button> */}
+      {status === "loading" && <Loader />}
 
-      {/* {status === "loading" && <Loader />} */}
-
-      {/* {trendsMoviesData?.results && (
-        <MoviesList movies={trendsMoviesData.results} />
-      )} */}
+      {favoriteMovies && <MoviesList movies={favoriteMovies} />}
     </Box>
   );
 };
+
 export default FavoritesPage;

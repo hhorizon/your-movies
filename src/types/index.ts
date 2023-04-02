@@ -70,3 +70,5 @@ export type MovieReviewsData = {
 };
 
 export type MediaType = "movie" | "tv";
+
+export type MovieWithFavorite = Movie & { isFavorite: boolean };

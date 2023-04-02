@@ -68,7 +68,7 @@ const RegistrationModal: React.FC = () => {
         left="50%"
         borderRadius={2}
         p={1}
-        width={600}
+        width={500}
         className={classes.modalBox}
       >
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

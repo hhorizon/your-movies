@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
@@ -13,20 +13,35 @@ import FavoriteLabel from "../../Favorites/FavoriteLabel";
 import formatedPosterImage from "../../../common/formatedPosterImage";
 import formatedMediaType from "../../../common/formatedMediaType";
 import formatedReleaseDate from "../../../common/formatedReleaseDate";
-import { Movie } from "../../../types";
+import {
+  addToFavorite,
+  deleteFromFavorite,
+} from "../../../services/firestoreService";
+import { AuthContext } from "../AuthProvider";
+import { MovieWithFavorite } from "../../../types";
 
 interface MoviesListItemProps {
-  movie: Movie;
+  movie: MovieWithFavorite;
 }
 
 const MoviesListItem: React.FC<MoviesListItemProps> = ({ movie }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
   const location = useLocation();
+  const { user } = useContext(AuthContext);
   const type = formatedMediaType(movie.media_type);
   const releaseDate = formatedReleaseDate(movie);
   const rating = movie.vote_average ? movie.vote_average.toFixed(1) : null;
   const linkToDetails =
     movie.media_type === "tv" ? `/series/${movie.id}` : `/films/${movie.id}`;
+
+  const onFavoriteIcon = (isAddIcon: boolean) => {
+    if (!user) {
+      // TODO open modal
+    } else {
+      isAddIcon
+        ? addToFavorite(movie, user.uid)
+        : deleteFromFavorite(movie, user.uid);
+    }
+  };
 
   return (
     <Box position="relative">
@@ -67,7 +82,10 @@ const MoviesListItem: React.FC<MoviesListItemProps> = ({ movie }) => {
       </Box>
 
       <Box position="absolute" top={5} right={5}>
-        <FavoriteLabel isFavorite={isFavorite} onFavoriteIcon={setIsFavorite} />
+        <FavoriteLabel
+          isFavorite={movie.isFavorite}
+          onFavoriteIcon={onFavoriteIcon}
+        />
       </Box>
     </Box>
   );
