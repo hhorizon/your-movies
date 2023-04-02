@@ -52,7 +52,13 @@ const FavoritesPage: React.FC = () => {
 
       {status === "loading" && <Loader />}
 
-      {favoriteMovies && <MoviesList movies={favoriteMovies} />}
+      {favoriteMovies && favoriteMovies.length !== 0 ? (
+        <MoviesList movies={favoriteMovies} />
+      ) : (
+        <Typography variant="h6">
+          {intl.formatMessage(messages.emptyFavoritesList)}
+        </Typography>
+      )}
     </Box>
   );
 };

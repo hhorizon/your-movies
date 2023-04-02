@@ -37,6 +37,7 @@
 
   "Favorites.FavoritesPage.title": "Your favorite movies",
   "Favorites.FavoritesPage.subtitle": "Choose and save your favorite movies to watch later",
+  "Favorites.FavoritesPage.emptyFavoritesList": "Empty yet",
   "Favorites.FavoritesPage.notAuthMessage": "First register or login to your account to watch your favorite movies",
 
   "Unknown.Header.menuItemFilms": "Films",

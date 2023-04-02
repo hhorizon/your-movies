@@ -9,6 +9,10 @@ export default defineMessages({
     id: "Favorites.FavoritesPage.subtitle",
     defaultMessage: "Choose and save your favorite movies to watch later",
   },
+  emptyFavoritesList: {
+    id: "Favorites.FavoritesPage.emptyFavoritesList",
+    defaultMessage: "Empty yet",
+  },
   notAuthMessage: {
     id: "Favorites.FavoritesPage.notAuthMessage",
     defaultMessage:
