@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useDispatch } from "react-redux";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
@@ -19,6 +20,7 @@ import {
 } from "../../../services/firestoreService";
 import { AuthContext } from "../AuthProvider";
 import { MovieWithFavorite } from "../../../types";
+import { openRegistrationModal } from "../../../redux/common/common-actions";
 
 interface MoviesListItemProps {
   movie: MovieWithFavorite;
@@ -26,6 +28,7 @@ interface MoviesListItemProps {
 
 const MoviesListItem: React.FC<MoviesListItemProps> = ({ movie }) => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const { user } = useContext(AuthContext);
   const type = formatedMediaType(movie.media_type);
   const releaseDate = formatedReleaseDate(movie);
@@ -35,7 +38,7 @@ const MoviesListItem: React.FC<MoviesListItemProps> = ({ movie }) => {
 
   const onFavoriteIcon = (isAddIcon: boolean) => {
     if (!user) {
-      // TODO open modal
+      dispatch(openRegistrationModal(1));
     } else {
       isAddIcon
         ? addToFavorite(movie, user.uid)
