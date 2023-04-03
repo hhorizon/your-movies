@@ -12,10 +12,8 @@ import App from "./App";
 import GlobalStyles from "./components/Unknown/GlobalStyles";
 import IntlProvider from "./components/Unknown/IntlProvider";
 import firebaseApp from "./common/firebaseApp";
-import { setupStore } from "./redux/store";
+import { store } from "./redux/store";
 import theme from "./common/theme";
-
-const store = setupStore();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,

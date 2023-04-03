@@ -7,12 +7,10 @@ const rootReducer = combineReducers({
   common: commonReducer,
 });
 
-export const setupStore = () => {
-  return configureStore({
-    reducer: rootReducer,
-    middleware: (getDefaultMiddlewere) =>
-      getDefaultMiddlewere().concat(movieAPI.middleware),
-  });
-};
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddlewere) =>
+    getDefaultMiddlewere().concat(movieAPI.middleware),
+});
 
 export type RootState = ReturnType<typeof rootReducer>;
