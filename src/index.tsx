@@ -6,6 +6,7 @@ import { FirebaseAppProvider } from "reactfire";
 import { CssBaseline, StyledEngineProvider } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { AuthProvider } from "./components/Unknown/AuthProvider";
+import { UIContextProvider } from "./components/Unknown/UIContext";
 
 import App from "./App";
 import GlobalStyles from "./components/Unknown/GlobalStyles";
@@ -31,7 +32,9 @@ root.render(
                 <StyledEngineProvider injectFirst>
                   <CssBaseline />
                   <GlobalStyles />
-                  <App />
+                  <UIContextProvider>
+                    <App />
+                  </UIContextProvider>
                 </StyledEngineProvider>
               </ThemeProvider>
             </IntlProvider>
