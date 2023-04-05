@@ -1,6 +1,4 @@
-import React, { useContext } from "react";
-import { collection, CollectionReference } from "firebase/firestore";
-import { useFirestoreCollectionData } from "reactfire";
+import React from "react";
 import { useIntl } from "react-intl";
 
 import Box from "@mui/material/Box";
@@ -8,31 +6,21 @@ import Typography from "@mui/material/Typography";
 import MoviesList from "../../Unknown/MovieList";
 import Loader from "../../Unknown/Loader";
 
-import { useGetTrendsQuery } from "../../../services/movieService";
-import db from "../../../common/firebaseDb";
 import getMoviesWithFavorite from "../../../common/getMoviesWithFavorite";
-import { AuthContext } from "../../Unknown/AuthProvider";
-import { MovieWithFavorite } from "../../../types";
+import { useGetTrendsQuery } from "../../../services/movieService";
+import { getFavoriteMovies } from "../../../redux/common/common-selectors";
+import { useAppSelector } from "../../../redux/hooks";
 import messages from "./messages";
 
 const HomePage: React.FC = () => {
   const intl = useIntl();
-  const { user } = useContext(AuthContext);
-
-  const favoritesRef = collection(
-    db,
-    `users/${user?.uid}/favoriteMovies`,
-  ) as CollectionReference<MovieWithFavorite>;
-
-  // TODO error notification
-  const { data: favoriteMovies } =
-    useFirestoreCollectionData<MovieWithFavorite>(favoritesRef);
+  const favoriteMovies = useAppSelector(getFavoriteMovies);
 
   const { data: trendsMoviesData, isLoading } = useGetTrendsQuery({
     type: "all",
   });
 
-  const moviesWithFavorite = getMoviesWithFavorite(
+  const movies = getMoviesWithFavorite(
     trendsMoviesData?.results,
     favoriteMovies,
   );
@@ -44,7 +32,7 @@ const HomePage: React.FC = () => {
 
       {isLoading && <Loader />}
 
-      {trendsMoviesData?.results && <MoviesList movies={moviesWithFavorite} />}
+      {trendsMoviesData?.results && <MoviesList movies={movies} />}
     </Box>
   );
 };

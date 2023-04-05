@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
@@ -18,9 +17,10 @@ import {
   addToFavorite,
   deleteFromFavorite,
 } from "../../../services/firestoreService";
-import { AuthContext } from "../AuthProvider";
-import { MovieWithFavorite } from "../../../types";
+import { getUser } from "../../../redux/auth/auth-selectors";
 import { openRegistrationModal } from "../../../redux/common/common-actions";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { MovieWithFavorite } from "../../../types";
 
 interface MoviesListItemProps {
   movie: MovieWithFavorite;
@@ -28,16 +28,17 @@ interface MoviesListItemProps {
 
 const MoviesListItem: React.FC<MoviesListItemProps> = ({ movie }) => {
   const location = useLocation();
-  const dispatch = useDispatch();
-  const { user } = useContext(AuthContext);
-  const type = formatedMediaType(movie.media_type);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(getUser);
+
+  const mediaType = formatedMediaType(movie.media_type);
   const releaseDate = formatedReleaseDate(movie);
   const rating = movie.vote_average ? movie.vote_average.toFixed(1) : null;
   const linkToDetails =
     movie.media_type === "tv" ? `/series/${movie.id}` : `/films/${movie.id}`;
 
   const onFavoriteIcon = (isAddIcon: boolean) => {
-    if (!user) {
+    if (!user.uid) {
       dispatch(openRegistrationModal(1));
     } else {
       isAddIcon
@@ -77,7 +78,7 @@ const MoviesListItem: React.FC<MoviesListItemProps> = ({ movie }) => {
               </Typography>
 
               <Typography variant="body2" color="text.secondary">
-                {releaseDate ? `${releaseDate},` : null} {type}
+                {releaseDate ? `${releaseDate},` : null} {mediaType}
               </Typography>
             </CardContent>
           </CardActionArea>

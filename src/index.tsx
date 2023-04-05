@@ -2,16 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux";
-import { FirebaseAppProvider } from "reactfire";
+import { FirebaseAppProvider, AuthProvider, StorageProvider } from "reactfire";
 import { CssBaseline, StyledEngineProvider } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import { AuthProvider } from "./components/Unknown/AuthProvider";
 import { UIContextProvider } from "./components/Unknown/UIContext";
-
-import App from "./App";
 import GlobalStyles from "./components/Unknown/GlobalStyles";
 import IntlProvider from "./components/Unknown/IntlProvider";
-import firebaseApp from "./common/firebaseApp";
+import App from "./App";
+
+import { firebaseApp, auth, storage } from "./common/firebaseApp";
 import { store } from "./redux/store";
 import theme from "./common/theme";
 
@@ -21,24 +20,26 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <FirebaseAppProvider firebaseApp={firebaseApp}>
-      <ReduxProvider store={store}>
-        <BrowserRouter>
-          <AuthProvider>
-            <IntlProvider>
-              <ThemeProvider theme={theme}>
-                <StyledEngineProvider injectFirst>
-                  <CssBaseline />
-                  <GlobalStyles />
-                  <UIContextProvider>
-                    <App />
-                  </UIContextProvider>
-                </StyledEngineProvider>
-              </ThemeProvider>
-            </IntlProvider>
+    <ReduxProvider store={store}>
+      <FirebaseAppProvider firebaseApp={firebaseApp}>
+        <StorageProvider sdk={storage}>
+          <AuthProvider sdk={auth}>
+            <BrowserRouter>
+              <IntlProvider>
+                <ThemeProvider theme={theme}>
+                  <StyledEngineProvider injectFirst>
+                    <CssBaseline />
+                    <GlobalStyles />
+                    <UIContextProvider>
+                      <App />
+                    </UIContextProvider>
+                  </StyledEngineProvider>
+                </ThemeProvider>
+              </IntlProvider>
+            </BrowserRouter>
           </AuthProvider>
-        </BrowserRouter>
-      </ReduxProvider>
-    </FirebaseAppProvider>
+        </StorageProvider>
+      </FirebaseAppProvider>
+    </ReduxProvider>
   </React.StrictMode>,
 );

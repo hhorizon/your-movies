@@ -1,7 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { collection, CollectionReference } from "firebase/firestore";
-import { useFirestoreCollectionData } from "reactfire";
 import { useIntl } from "react-intl";
 
 import Typography from "@mui/material/Typography";
@@ -9,27 +7,17 @@ import Box from "@mui/material/Box";
 import MoviesList from "../../Unknown/MovieList";
 import Loader from "../../Unknown/Loader";
 
-import { useGetMoviesByTypeQuery } from "../../../services/movieService";
-import db from "../../../common/firebaseDb";
 import getMoviesWithFavorite from "../../../common/getMoviesWithFavorite";
-import { AuthContext } from "../../Unknown/AuthProvider";
-import { MovieWithFavorite } from "../../../types";
+import { useGetMoviesByTypeQuery } from "../../../services/movieService";
+import { getFavoriteMovies } from "../../../redux/common/common-selectors";
+import { useAppSelector } from "../../../redux/hooks";
 import messages from "./messages";
 
 const SearchPage = () => {
   const [page, setPage] = useState(1);
-  const { user } = useContext(AuthContext);
   const { query } = useParams();
   const intl = useIntl();
-
-  const favoritesRef = collection(
-    db,
-    `users/${user?.uid}/favoriteMovies`,
-  ) as CollectionReference<MovieWithFavorite>;
-
-  // TODO error notification
-  const { data: favoriteMovies } =
-    useFirestoreCollectionData<MovieWithFavorite>(favoritesRef);
+  const favoriteMovies = useAppSelector(getFavoriteMovies);
 
   const { data: moviesData, isLoading } = useGetMoviesByTypeQuery({
     query: query ?? "",
@@ -37,10 +25,7 @@ const SearchPage = () => {
     page,
   });
 
-  const moviesWithFavorite = getMoviesWithFavorite(
-    moviesData?.results,
-    favoriteMovies,
-  );
+  const movies = getMoviesWithFavorite(moviesData?.results, favoriteMovies);
 
   return (
     <Box>
@@ -53,7 +38,7 @@ const SearchPage = () => {
 
       {moviesData?.results.length ? (
         <MoviesList
-          movies={moviesWithFavorite}
+          movies={movies}
           withPagination
           totalPages={moviesData.total_pages}
           changePage={setPage}

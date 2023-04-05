@@ -1,33 +1,32 @@
-import React, { useContext } from "react";
-import { useDispatch } from "react-redux";
-import { getAuth, signOut } from "firebase/auth";
+import React from "react";
 import { useIntl } from "react-intl";
 
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import RegistrationModal from "../RregistrationModal";
+import RegistrationModal from "../RegistrationModal";
 
-import { AuthContext } from "../AuthProvider";
-import { openRegistrationModal } from "../../../redux/common/common-actions";
+import { getUser } from "../../../redux/auth/auth-selectors";
+import {
+  openRegistrationModal,
+  setFavoriteMovies,
+} from "../../../redux/common/common-actions";
+import { signOut } from "../../../redux/auth/auth-operations";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import messages from "./messages";
 
 const UserMenu: React.FC = () => {
-  const dispatch = useDispatch();
-  const { user } = useContext(AuthContext);
-  const auth = getAuth();
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(getUser);
   const intl = useIntl();
   const userName = user?.email?.[0];
 
   const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        console.log(`User ${user?.email} logged out`); // TODO notification
-      })
-      .catch((error) => console.log(error));
+    dispatch(signOut());
+    dispatch(setFavoriteMovies([]));
   };
 
-  if (user) {
+  if (user.uid) {
     return (
       <Box display="flex" alignItems="center">
         <Button

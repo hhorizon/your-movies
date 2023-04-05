@@ -15,6 +15,6 @@ export default defineMessages({
   },
   signUpBtnText: {
     id: "Unknown.RegistrationModal.signUpBtnText",
-    defaultMessage: "Registration",
+    defaultMessage: "Create user",
   },
 });

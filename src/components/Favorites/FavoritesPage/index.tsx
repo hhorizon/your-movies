@@ -1,7 +1,4 @@
-import React, { useContext, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { collection, CollectionReference } from "firebase/firestore";
-import { useFirestoreCollectionData } from "reactfire";
+import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
 
 import Box from "@mui/material/Box";
@@ -9,33 +6,29 @@ import Typography from "@mui/material/Typography";
 import Loader from "../../Unknown/Loader";
 import MoviesList from "../../Unknown/MovieList";
 
-import messages from "./messages";
-import { AuthContext } from "../../Unknown/AuthProvider";
-import db from "../../../common/firebaseDb";
-import { MovieWithFavorite } from "../../../types";
+import {
+  getFavoriteMovies,
+  getFavoritesLoadingSatus,
+} from "../../../redux/common/common-selectors";
 import { openRegistrationModal } from "../../../redux/common/common-actions";
+import { getUser } from "../../../redux/auth/auth-selectors";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import messages from "./messages";
 
 const FavoritesPage: React.FC = () => {
-  const { user, loadingAuth } = useContext(AuthContext);
-  const dispatch = useDispatch();
   const intl = useIntl();
-
-  const favoritesRef = collection(
-    db,
-    `users/${user?.uid}/favoriteMovies`,
-  ) as CollectionReference<MovieWithFavorite>;
-
-  // TODO error notification
-  const { status, data: favoriteMovies } =
-    useFirestoreCollectionData<MovieWithFavorite>(favoritesRef);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(getUser);
+  const favoriteMovies = useAppSelector(getFavoriteMovies);
+  const isFavoritesLoading = useAppSelector(getFavoritesLoadingSatus);
 
   useEffect(() => {
-    if (!user) {
+    if (!user.uid) {
       dispatch(openRegistrationModal(1));
     }
-  }, [dispatch, loadingAuth, user]);
+  }, [dispatch, user]);
 
-  if (!user) {
+  if (!user.uid) {
     return (
       <Box>
         <Typography variant="h6">
@@ -50,7 +43,7 @@ const FavoritesPage: React.FC = () => {
       <Typography variant="h4">{intl.formatMessage(messages.title)}</Typography>
       <Typography mb={6}>{intl.formatMessage(messages.subtitle)}</Typography>
 
-      {status === "loading" && <Loader />}
+      {isFavoritesLoading === "loading" && <Loader />}
 
       {favoriteMovies && favoriteMovies.length !== 0 ? (
         <MoviesList movies={favoriteMovies} />

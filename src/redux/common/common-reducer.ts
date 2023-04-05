@@ -3,16 +3,23 @@ import {
   openRegistrationModal,
   closeRegistrationModal,
   changeRegistrationModalTab,
+  setFavoriteMovies,
+  setFavoritesLoadingStatus,
 } from "./common-actions";
+import { MovieWithFavorite, FirebaseStatus } from "../../types";
 
 interface CommonState {
   isModalOpen: boolean;
   modalTabsValue: number;
+  favoriteMovies: MovieWithFavorite[];
+  isFavoritesLoading: FirebaseStatus;
 }
 
 const initialState: CommonState = {
   isModalOpen: false,
   modalTabsValue: 0,
+  favoriteMovies: [],
+  isFavoritesLoading: "success",
 };
 
 const commonReducer = createReducer(initialState, (builder) => {
@@ -26,6 +33,12 @@ const commonReducer = createReducer(initialState, (builder) => {
     })
     .addCase(changeRegistrationModalTab, (state, { payload }) => {
       state.modalTabsValue = payload;
+    })
+    .addCase(setFavoriteMovies, (state, { payload }) => {
+      state.favoriteMovies = payload;
+    })
+    .addCase(setFavoritesLoadingStatus, (state, { payload }) => {
+      state.isFavoritesLoading = payload;
     });
 });
 

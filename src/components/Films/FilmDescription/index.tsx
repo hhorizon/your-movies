@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { format } from "date-fns";
 import { useIntl } from "react-intl";
 
@@ -14,13 +13,14 @@ import FavoriteLabel from "../../Favorites/FavoriteLabel";
 import formatedPosterImage from "../../../common/formatedPosterImage";
 import formatedReleaseDate from "../../../common/formatedReleaseDate";
 import formatedSum from "../../../common/formatedSum";
-import { AuthContext } from "../../Unknown/AuthProvider";
-import { MovieWithFavorite } from "../../../types";
+import { getUser } from "../../../redux/auth/auth-selectors";
 import { openRegistrationModal } from "../../../redux/common/common-actions";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import {
   addToFavorite,
   deleteFromFavorite,
 } from "../../../services/firestoreService";
+import { MovieWithFavorite } from "../../../types";
 import messages from "./messages";
 
 type FilmDescriptionProps = {
@@ -28,8 +28,8 @@ type FilmDescriptionProps = {
 };
 
 const FilmDescription: React.FC<FilmDescriptionProps> = ({ film }) => {
-  const { user } = useContext(AuthContext);
-  const dispatch = useDispatch();
+  const user = useAppSelector(getUser);
+  const dispatch = useAppDispatch();
   const intl = useIntl();
 
   const releaseDate = formatedReleaseDate(film);
@@ -74,7 +74,7 @@ const FilmDescription: React.FC<FilmDescriptionProps> = ({ film }) => {
   ];
 
   const onFavoriteIcon = (isAddIcon: boolean) => {
-    if (!user) {
+    if (!user.uid) {
       dispatch(openRegistrationModal(1));
     } else {
       isAddIcon
