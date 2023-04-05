@@ -9,7 +9,7 @@ export const addToFavorite = async (movie: Movie, userId: string) => {
       { ...movie, isFavorite: true },
     );
   } catch (error) {
-    console.log(error); // TODO notification
+    console.log(error);
   }
 };
 
@@ -19,6 +19,6 @@ export const deleteFromFavorite = async (movie: Movie, userId: string) => {
       doc(firestore, `users/${userId}/favoriteMovies`, movie.id.toString()),
     );
   } catch (error) {
-    console.log(error, "qweqweqwe"); // TODO notification
+    console.log(error);
   }
 };

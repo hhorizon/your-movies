@@ -1,5 +1,4 @@
 import React, { createContext, useState } from "react";
-// import { AlertColor } from '@mui/lab/Alert';
 import { Snackbar, Alert } from "@mui/material";
 
 interface UIContextProps {

@@ -19,7 +19,7 @@ const UserMenu: React.FC = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(getUser);
   const intl = useIntl();
-  const userName = user?.email?.[0];
+  const userName = user.email?.[0];
 
   const handleSignOut = () => {
     dispatch(signOut());
