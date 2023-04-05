@@ -80,6 +80,14 @@ const Header = () => {
               >
                 {intl.formatMessage(messages.menuItemSeries)}
               </MenuItem>
+
+              <MenuItem
+                component={RouterLink}
+                to="/favorites"
+                onClick={handleCloseNavMenu}
+              >
+                {intl.formatMessage(messages.menuItemFavorites)}
+              </MenuItem>
             </Menu>
           </Box>
 
@@ -98,9 +106,15 @@ const Header = () => {
               </Typography>
             </MenuItem>
 
-            <MenuItem component={RouterLink} to="/series">
+            <MenuItem component={RouterLink} to="/series" sx={{ mr: 4 }}>
               <Typography variant="h6">
                 {intl.formatMessage(messages.menuItemSeries)}
+              </Typography>
+            </MenuItem>
+
+            <MenuItem component={RouterLink} to="/favorites">
+              <Typography variant="h6">
+                {intl.formatMessage(messages.menuItemFavorites)}
               </Typography>
             </MenuItem>
           </Box>

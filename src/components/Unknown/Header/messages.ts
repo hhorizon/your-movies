@@ -9,4 +9,8 @@ export default defineMessages({
     id: "Unknown.Header.menuItemSeries",
     defaultMessage: "Series",
   },
+  menuItemFavorites: {
+    id: "Unknown.Header.menuItemFavorites",
+    defaultMessage: "Favorites",
+  },
 });

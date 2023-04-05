@@ -9,7 +9,10 @@ import MovieDetailsTabs from "../../Unknown/MovieDetailsTabs";
 import NotFoundPage from "../../Unknown/NotFoundPage";
 import Loader from "../../Unknown/Loader";
 
+import getOneMovieWithFavorite from "../../../common/getOneMovieWithFavorite";
 import { useGetFilmByIdQuery } from "../../../services/movieService";
+import { getFavoriteMovies } from "../../../redux/common/common-selectors";
+import { useAppSelector } from "../../../redux/hooks";
 import messages from "./messages";
 
 type FilmDetailsPageParams = {
@@ -21,6 +24,7 @@ const FilmDetailsPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const intl = useIntl();
+  const favoriteMovies = useAppSelector(getFavoriteMovies);
 
   const navigatePathname = useMemo(() => {
     const state = location.state as { from: string };
@@ -32,6 +36,8 @@ const FilmDetailsPage: React.FC = () => {
 
   const { data: film, isLoading, error } = useGetFilmByIdQuery(movieId);
 
+  const movieWithFavorite = getOneMovieWithFavorite(film, favoriteMovies);
+
   const onClickBack = () => {
     navigate(navigatePathname);
   };
@@ -39,10 +45,10 @@ const FilmDetailsPage: React.FC = () => {
   if (error) return <NotFoundPage />;
 
   return (
-    <Box pt={18} pb={5} height="100%" display="flex" flexDirection="column">
+    <Box>
       {isLoading && <Loader />}
 
-      {film && (
+      {movieWithFavorite && (
         <Box>
           <Box mb={5}>
             <Button variant="outlined" onClick={onClickBack}>
@@ -51,7 +57,7 @@ const FilmDetailsPage: React.FC = () => {
           </Box>
 
           <Box mb={5}>
-            <FilmDescription film={film} />
+            <FilmDescription film={movieWithFavorite} />
           </Box>
 
           <Box>

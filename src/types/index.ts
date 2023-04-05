@@ -1,3 +1,17 @@
+export type UserData = {
+  name: string | null;
+  email: string | null;
+  photoURL: string | null;
+  uid: string | null;
+};
+
+export type UserCredential = {
+  email: string;
+  password: string;
+};
+
+export type FirebaseStatus = "error" | "loading" | "success";
+
 type Genre = {
   id: number;
   name: string;
@@ -70,3 +84,5 @@ export type MovieReviewsData = {
 };
 
 export type MediaType = "movie" | "tv";
+
+export type MovieWithFavorite = Movie & { isFavorite: boolean };

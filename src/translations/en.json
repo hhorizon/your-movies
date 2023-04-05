@@ -35,8 +35,14 @@
   "Search.SearchPage.searchResultTitle": "Search results for",
   "Search.SearchPage.noResultsText": "No results for your query",
 
+  "Favorites.FavoritesPage.title": "Your favorite movies",
+  "Favorites.FavoritesPage.subtitle": "Choose and save your favorite movies to watch later",
+  "Favorites.FavoritesPage.emptyFavoritesList": "Empty yet",
+  "Favorites.FavoritesPage.notAuthMessage": "First register or login to your account to watch your favorite movies",
+
   "Unknown.Header.menuItemFilms": "Films",
   "Unknown.Header.menuItemSeries": "Series",
+  "Unknown.Header.menuItemFavorites": "Favorites",
 
   "Unknown.Footer.menuItemFilms": "Films",
   "Unknown.Footer.menuItemSeries": "Series",
@@ -64,5 +70,5 @@
   "Unknown.RegistrationModal.signUpLabel": "Sign Up",
   "Unknown.RegistrationModal.signInLabel": "Sign In",
   "Unknown.RegistrationModal.signInBtnText": "Sign In",
-  "Unknown.RegistrationModal.signUpBtnText": "Registration"
+  "Unknown.RegistrationModal.signUpBtnText": "Create user"
 }

@@ -8,18 +8,28 @@ import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import Chip from "@mui/material/Chip";
 import StarIcon from "@mui/icons-material/Star";
+import FavoriteLabel from "../../Favorites/FavoriteLabel";
 
 import formatedPosterImage from "../../../common/formatedPosterImage";
 import formatedReleaseDate from "../../../common/formatedReleaseDate";
 import formatedSum from "../../../common/formatedSum";
-import { Movie } from "../../../types";
+import { getUser } from "../../../redux/auth/auth-selectors";
+import { openRegistrationModal } from "../../../redux/common/common-actions";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import {
+  addToFavorite,
+  deleteFromFavorite,
+} from "../../../services/firestoreService";
+import { MovieWithFavorite } from "../../../types";
 import messages from "./messages";
 
 type FilmDescriptionProps = {
-  film: Movie;
+  film: MovieWithFavorite;
 };
 
 const FilmDescription: React.FC<FilmDescriptionProps> = ({ film }) => {
+  const user = useAppSelector(getUser);
+  const dispatch = useAppDispatch();
   const intl = useIntl();
 
   const releaseDate = formatedReleaseDate(film);
@@ -63,14 +73,34 @@ const FilmDescription: React.FC<FilmDescriptionProps> = ({ film }) => {
     },
   ];
 
+  const onFavoriteIcon = (isAddIcon: boolean) => {
+    if (!user.uid) {
+      dispatch(openRegistrationModal(1));
+    } else {
+      isAddIcon
+        ? addToFavorite(film, user.uid)
+        : deleteFromFavorite(film, user.uid);
+    }
+  };
+
   return (
     <Grid container spacing={{ sm: 6, lg: 10 }}>
       <Grid item sm={5} md={4}>
-        <img
-          src={formatedPosterImage(film.poster_path)}
-          alt={title}
-          width="100%"
-        />
+        <Box position="relative">
+          <img
+            src={formatedPosterImage(film.poster_path)}
+            alt={title}
+            width="100%"
+          />
+
+          <Box position="absolute" top={5} right={5} zIndex={10}>
+            <FavoriteLabel
+              isFavorite={film.isFavorite}
+              size="large"
+              onFavoriteIcon={onFavoriteIcon}
+            />
+          </Box>
+        </Box>
       </Grid>
 
       <Grid item sm={7} md={8}>
